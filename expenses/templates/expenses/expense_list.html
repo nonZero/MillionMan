@@ -1,0 +1,27 @@
+<h1>Million Man</h1>
+
+<ol>
+    <li>{{ foo19 }}</li>
+    <li>{{ kuku123 }}</li>
+    <li>{{ produasdsadsadsacts }}</li>
+    <li>{{ products }}</li>
+</ol>
+<hr>
+<ul>
+    {% for product in products %}
+        <li>
+            {% if forloop.counter == 2 %}
+                🐶🐶🐶
+            {% else %}
+                🙀
+            {% endif %}
+            {{ product }}
+        </li>
+    {% endfor %}
+</ul>
+<hr>
+<ul>
+    <li>milk</li>
+    <li>cookies</li>
+    <li>danny</li>
+</ul>

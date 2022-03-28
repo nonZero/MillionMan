@@ -13,64 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import random
 
 from django.contrib import admin
-from django.http import HttpResponse, JsonResponse
-from django.urls import path
-
-
-# VIEW FUNCTIONS
-def home(request):
-    return HttpResponse("Hello <b>world</b>!!!")
-
-
-def mazal_tov(request, person_name: str):
-    return HttpResponse(f"Mazal Tov {person_name}!!! ")
-
-
-def squared(request, n: int):
-    return HttpResponse(f"{n}^2 = {n ** 2}")
-
-
-def add(request, a: int, b: int):
-    return HttpResponse(f"{a} + {b} = {a+b}")
-
-
-def price(request, name: str, price: int):
-    return HttpResponse(f"The price of {name} is {price:.2f} NIS.")
-
-
-def lucky(request):
-    return JsonResponse(
-        {
-            "lucky": random.randint(1, 100),
-        }
-    )
-
+from django.urls import path, include
 
 # URLS / URLCONF
 urlpatterns = [
-    path("", home),
-    path("mazal-tov/<person_name>/", mazal_tov),
-    path("sqr/<int:n>/", squared),
-    path("add/<int:a>/<int:b>/", add),
-    path("price/<name>/<int:price>/", price),
-    path("price/<int:price>/<name>/", price),
-    path(
-        "sale/<name>/",
-        price,
-        {
-            "price": 3,
-        },
-    ),
-    path(
-        "drink/<int:price>/",
-        price,
-        {
-            "name": "coffee",
-        },
-    ),
-    path("api/lucky/", lucky),
+    path("", include("expenses.urls")),
     path("admin/", admin.site.urls),
 ]

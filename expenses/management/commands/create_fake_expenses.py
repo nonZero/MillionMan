@@ -20,4 +20,5 @@ class Command(BaseCommand):
                 title=faker.sentence(),
                 amount=random.randint(100, 30000) / 100,
                 date=faker.date_this_year(),
+                description=faker.paragraph(),
             )

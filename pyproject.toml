@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "million_man"
+version = "0.1.0"
+description = ""
+authors = ["Udi Oron <udioron@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.0.3"
+ipython = "^8.2.0"
+pytest = "^7.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

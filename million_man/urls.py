@@ -13,14 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import random
+
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import path
 
 
 # VIEW FUNCTIONS
 def home(request):
-    return HttpResponse("Hello world!!!")
+    return HttpResponse("Hello <b>world</b>!!!")
 
 
 def mazal_tov(request, person_name: str):
@@ -35,6 +37,11 @@ def add(request, a: int, b: int):
 
 def price(request, name: str, price: int):
     return HttpResponse(f"The price of {name} is {price:.2f} NIS.")
+
+def lucky(request):
+    return JsonResponse({
+        "lucky": random.randint(1, 100),
+    })
 
 
 # URLS / URLCONF
@@ -51,5 +58,6 @@ urlpatterns = [
     path('drink/<int:price>/', price, {
         "name": 'coffee',
     }),
+    path('api/lucky/', lucky),
     path('admin/', admin.site.urls),
 ]

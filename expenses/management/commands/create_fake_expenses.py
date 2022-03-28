@@ -7,11 +7,12 @@ from expenses.models import Expense
 
 faker = Faker()
 
+
 class Command(BaseCommand):
     help = "Creates fake expenses"
 
     def add_arguments(self, parser):
-        parser.add_argument('n', type=int)
+        parser.add_argument("n", type=int)
 
     def handle(self, n, *args, **options):
         for i in range(n):

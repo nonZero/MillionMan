@@ -32,32 +32,45 @@ def mazal_tov(request, person_name: str):
 def squared(request, n: int):
     return HttpResponse(f"{n}^2 = {n ** 2}")
 
+
 def add(request, a: int, b: int):
     return HttpResponse(f"{a} + {b} = {a+b}")
+
 
 def price(request, name: str, price: int):
     return HttpResponse(f"The price of {name} is {price:.2f} NIS.")
 
+
 def lucky(request):
-    return JsonResponse({
-        "lucky": random.randint(1, 100),
-    })
+    return JsonResponse(
+        {
+            "lucky": random.randint(1, 100),
+        }
+    )
 
 
 # URLS / URLCONF
 urlpatterns = [
-    path('', home),
-    path('mazal-tov/<person_name>/', mazal_tov),
-    path('sqr/<int:n>/', squared),
-    path('add/<int:a>/<int:b>/', add),
-    path('price/<name>/<int:price>/', price),
-    path('price/<int:price>/<name>/', price),
-    path('sale/<name>/', price, {
-        "price": 3,
-    }),
-    path('drink/<int:price>/', price, {
-        "name": 'coffee',
-    }),
-    path('api/lucky/', lucky),
-    path('admin/', admin.site.urls),
+    path("", home),
+    path("mazal-tov/<person_name>/", mazal_tov),
+    path("sqr/<int:n>/", squared),
+    path("add/<int:a>/<int:b>/", add),
+    path("price/<name>/<int:price>/", price),
+    path("price/<int:price>/<name>/", price),
+    path(
+        "sale/<name>/",
+        price,
+        {
+            "price": 3,
+        },
+    ),
+    path(
+        "drink/<int:price>/",
+        price,
+        {
+            "name": "coffee",
+        },
+    ),
+    path("api/lucky/", lucky),
+    path("admin/", admin.site.urls),
 ]

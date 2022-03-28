@@ -14,7 +14,4 @@ def test_one_plus_one_is_three():
 def test_home(client):
     r: HttpResponse = client.get("")
     assert r.status_code == 200
-    assert r.content.decode() == 'Hello <b>world</b>!!!'
-
-
-
+    assert r.content.decode() == "Hello <b>world</b>!!!"

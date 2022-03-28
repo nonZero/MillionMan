@@ -3,8 +3,8 @@ from django.db import models
 # ORM: Object-Relational Mapper
 
 # SQL: DDL + DML
-        # Data Definition Language
-        # Data Manipulation Language
+# Data Definition Language
+# Data Manipulation Language
 
 
 class Expense(models.Model):

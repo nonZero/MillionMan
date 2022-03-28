@@ -14,8 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path
 
+# VIEW FUNCTIONS
+def home(request):
+    return HttpResponse("Hello world!!!")
+
+def mazal_tov(request, person_name: str):
+    return HttpResponse(f"Mazal Tov {person_name}!!! ")
+
+def squared(request, n: int):
+    return HttpResponse(f"{n}^2 = {n ** 2}")
+
+
+# URLS / URLCONF
 urlpatterns = [
+    path('', home),
+    path('mazal-tov/<person_name>/', mazal_tov),
+    path('sqr/<int:n>/', squared),
     path('admin/', admin.site.urls),
 ]

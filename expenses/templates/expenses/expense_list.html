@@ -1,5 +1,33 @@
 <h1>Million Man</h1>
 
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    {% for object in object_list %}
+        <tr>
+            <td>{{ object.title }}</td>
+            <td>${{ object.amount }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<p>
+    {{ cal|safe }}
+</p>
+
+<p>
+    {% for a,b in nums %}
+        {{ a }}<sup>2</sup> = <b>{{ b }}</b>
+        {% if not forloop.last %}
+            ∫
+        {% endif %}
+    {% endfor %}
+</p>
+
 <ol>
     <li>{{ foo19 }}</li>
     <li>{{ kuku123 }}</li>

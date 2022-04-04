@@ -45,10 +45,6 @@ def expense_list(request: HttpRequest):
 
 
 def expense_detail(request: HttpRequest, pk: int):
-    # try:
-    #     o = Expense.objects.get(id=pk)
-    # except Expense.DoesNotExist:
-    #     raise Http404()
     o = get_object_or_404(Expense, id=pk)
 
     return render(

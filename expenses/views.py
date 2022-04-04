@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.http import HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404
+from . import forms
 
 from expenses.models import Expense
 
@@ -53,5 +54,22 @@ def expense_detail(request: HttpRequest, pk: int):
         "expenses/expense_detail.html",
         {
             "object": o,
+        },
+    )
+
+
+def expense_create(request: HttpRequest):
+    if request.method == "POST":
+        form = forms.FeedbackForm(request.POST)
+        if form.is_valid():
+            assert False, form.cleaned_data
+        # fallthrough!!!!
+    else:
+        form = forms.FeedbackForm()
+    return render(
+        request,
+        "expenses/expense_create.html",
+        {
+            "form": form,
         },
     )

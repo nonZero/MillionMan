@@ -22,7 +22,7 @@
 
 * Add some fake data:
 
-      poetry run python manage.py create_fake_data 150
+      poetry run python manage.py create_fake_expenses 150
 
 * Create a superuser for the admin site:
 

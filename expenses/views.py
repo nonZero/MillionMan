@@ -68,7 +68,7 @@ def expense_create(request: HttpRequest):
         form = forms.ExpenseForm()
     return render(
         request,
-        "expenses/expense_create.html",
+        "expenses/expense_form.html",
         {
             "form": form,
         },

@@ -1,9 +1,18 @@
-<h1>Million Man</h1>
+{% extends "base.html" %}
 
-<ul>
-    <li>ID: {{ object.id }}</li>
-    <li>Title: {{ object.title }}</li>
-    <li>Amount: ${{ object.amount }}</li>
-    <li>Date: {{ object.date }}</li>
-    <li>Description: {{ object.description|linebreaks }}</li>
-</ul>
+{% block title %}
+    Expense #{{ object.id }}: {{ object.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Expense #{{ object.id }}: {{ object.title }}</h1>
+
+    <ul>
+        <li>ID: {{ object.id }}</li>
+        <li>Title: {{ object.title }}</li>
+        <li>Amount: ${{ object.amount }}</li>
+        <li>Date: {{ object.date }}</li>
+        <li>Description: {{ object.description|linebreaks }}</li>
+    </ul>
+
+{% endblock %}

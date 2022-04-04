@@ -1,5 +1,6 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -17,3 +18,9 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("expenses:detail", kwargs={"pk": self.id})
+
+    def is_expensive(self):
+        return self.amount > 75

@@ -1,6 +1,8 @@
 from django.db.models import Q
 from django.http import HttpRequest, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+
 from . import forms
 
 from expenses.models import Expense
@@ -60,12 +62,14 @@ def expense_detail(request: HttpRequest, pk: int):
 
 def expense_create(request: HttpRequest):
     if request.method == "POST":
-        form = forms.FeedbackForm(request.POST)
+        form = forms.ExpenseForm(request.POST)
         if form.is_valid():
-            assert False, form.cleaned_data
+            o = form.save()
+            return redirect(o)
+            # return redirect(reverse("expenses:list"))
         # fallthrough!!!!
     else:
-        form = forms.FeedbackForm()
+        form = forms.ExpenseForm()
     return render(
         request,
         "expenses/expense_create.html",

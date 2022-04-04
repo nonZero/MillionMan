@@ -1,4 +1,5 @@
 from django import forms
+from . import models
 
 
 class FeedbackForm(forms.Form):
@@ -7,5 +8,15 @@ class FeedbackForm(forms.Form):
         required=False, help_text="We provide answers in less than 5 years."
     )
     content = forms.CharField(widget=forms.Textarea, label="Your content here:")
-    # email = forms.EmailField()
+    email = forms.EmailField()
     rating = forms.IntegerField(min_value=1, max_value=5)
+
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = models.Expense
+        fields = "__all__"
+        # fields = (
+        #     "amount",
+        #     "date",
+        # )

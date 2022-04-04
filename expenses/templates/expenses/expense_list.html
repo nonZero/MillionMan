@@ -10,9 +10,9 @@
             Amount:
             <select name="amount_range">
                 <option value="">All</option>
-                <option value="cheap">Cheap (<$10)</option>
-                <option value="regular">Regular ($10-$100)</option>
-                <option value="expensive">Expensive (>$100)</option>
+                {% for k, v in AMOUNT_RANGES.items %}
+                    <option value="{{ k }}" {% if amount_range == k %} selected{% endif %}>{{ v }}</option>
+                {% endfor %}
             </select>
         </label>
     </p>

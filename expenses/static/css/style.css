@@ -1,0 +1,22 @@
+/* tag */
+body {
+    background: lightblue;
+}
+
+/* class */
+.amount-cell {
+    text-align: right;
+}
+
+.search-caption {
+    background: goldenrod;
+    font-style: italic;
+}
+
+th, td {
+    border: solid 1px black;
+}
+
+tfoot th {
+    border: none;
+}

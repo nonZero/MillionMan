@@ -1,3 +1,11 @@
+{% load static %}
+<html>
+<head>
+    <title>💸 MILLION MAN 💸</title>
+    <link rel="stylesheet" href="{% static "css/style.css"%}"/>
+</head>
+<body>
+
 <h1>Million Man</h1>
 
 <p><a href="{% url "expenses:create" %}">Create</a></p>
@@ -13,7 +21,8 @@
             <select name="amount_range">
                 <option value="">All</option>
                 {% for k, v in AMOUNT_RANGES.items %}
-                    <option value="{{ k }}" {% if amount_range == k %} selected{% endif %}>{{ v }}</option>
+                    <option value="{{ k }}" {% if amount_range == k %}
+                            selected{% endif %}>{{ v }}</option>
                 {% endfor %}
             </select>
         </label>
@@ -25,12 +34,14 @@
 
 <p>
     {% if q %}
-        Searched for: <b>{{ q }}</b>
-        <a href="/">✕</a> &bull;
+        <span class="search-caption">
+        Searched for: <b>{{ q }}</b> <a href="/">✕</a>
+        </span>
+        &bull;
     {% endif %}
     Expenses Found: {{ object_list.count }}
 </p>
-<table border="1">
+<table >
     <thead>
     <tr>
         <th>ID</th>
@@ -41,18 +52,21 @@
     <tbody>
     {% for object in object_list.all %}
         <tr>
-            <td><a href="{{ object.get_absolute_url }}">{{ object.id }}</a></td>
+            <td><a href="{{ object.get_absolute_url }}">{{ object.id }}</a>
+            </td>
             <td>{{ object.title }}</td>
-            <td>${{ object.amount }}</td>
+            <td class="amount-cell">${{ object.amount }}</td>
         </tr>
     {% endfor %}
-    <foot>
-    <tr>
-        <th></th>
-        <th></th>
-        <th>${{ total }}</th>
-    </tr>
-    </foot>
     </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>${{ total }}</th>
+        </tr>
+    </tfoot>
 </table>
 
+</body>
+</html>

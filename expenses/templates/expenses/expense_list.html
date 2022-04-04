@@ -1,5 +1,36 @@
 <h1>Million Man</h1>
 
+<form>
+    <p>
+        Search: <input name="q"/>
+    </p>
+
+    <p>
+        Search Fields:
+    <ul>
+        <li><label>Date: <input type="checkbox" name="amount" value="title"
+                                checked/></label></li>
+        <li><label>Amount: <input type="checkbox" name="amount" value="amount"
+                                  checked/></label></li>
+        <li><label>ID: <input type="checkbox" name="amount" value="id"
+                              checked/></label></li>
+        <li><label>description: <input type="checkbox" name="amount"
+                                       value="desc"
+                                       {% if x %}checked{% endif %}/></label>
+        </li>
+    </ul>
+    </p>
+    {#    <p>#}
+    {#        Category:#}
+    {#            Home <input type="radio"/>#}
+    {#            Food <input type="radio"/>#}
+    {#            Car <input type="radio"/>#}
+    {#    </p>#}
+    <button>Search</button>
+
+</form>
+
+
 <table border="1">
     <thead>
     <tr>

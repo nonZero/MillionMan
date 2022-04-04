@@ -2,35 +2,32 @@
 
 <form>
     <p>
-        Search: <input name="q"/>
+        Search: <input name="q" type="search" value="{{ q }}"/>
     </p>
 
     <p>
-        Search Fields:
-    <ul>
-        <li><label>Date: <input type="checkbox" name="my_search_fields" value="title"
-                                checked/></label></li>
-        <li><label>Amount: <input type="checkbox" name="my_search_fields" value="amount"
-                                  checked/></label></li>
-        <li><label>ID: <input type="checkbox" name="my_search_fields" value="id"
-                              checked/></label></li>
-        <li><label>description: <input type="checkbox" name="my_search_fields"
-                                       value="desc"
-                                       {% if x %}checked{% endif %}/></label>
-        </li>
-    </ul>
+        <label>
+            Amount:
+            <select name="amount_range">
+                <option value="">All</option>
+                <option value="cheap">Cheap (<$10)</option>
+                <option value="regular">Regular ($10-$100)</option>
+                <option value="expensive">Expensive (>$100)</option>
+            </select>
+        </label>
     </p>
-    {#    <p>#}
-    {#        Category:#}
-    {#            Home <input type="radio"/>#}
-    {#            Food <input type="radio"/>#}
-    {#            Car <input type="radio"/>#}
-    {#    </p>#}
     <button>Search</button>
 
 </form>
 
 
+<p>
+    {% if q %}
+        Searched for: <b>{{ q }}</b>
+        <a href="/">✕</a> &bull;
+    {% endif %}
+    Expenses Found: {{ object_list.count }}
+</p>
 <table border="1">
     <thead>
     <tr>
@@ -39,7 +36,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for object in object_list %}
+    {% for object in object_list.all %}
         <tr>
             <td>{{ object.title }}</td>
             <td>${{ object.amount }}</td>

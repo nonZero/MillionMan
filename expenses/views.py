@@ -1,6 +1,6 @@
 from django.db.models import Q
-from django.http import HttpRequest
-from django.shortcuts import render
+from django.http import HttpRequest, Http404
+from django.shortcuts import render, get_object_or_404
 
 from expenses.models import Expense
 
@@ -38,4 +38,20 @@ def expense_list(request: HttpRequest):
             "amount_range": amount_range,
             "AMOUNT_RANGES": AMOUNT_RANGES,
         },  # <--- CONTEXT
+    )
+
+
+def expense_detail(request: HttpRequest, pk: int):
+    # try:
+    #     o = Expense.objects.get(id=pk)
+    # except Expense.DoesNotExist:
+    #     raise Http404()
+    o = get_object_or_404(Expense, id=pk)
+
+    return render(
+        request,
+        "expenses/expense_detail.html",
+        {
+            "object": o,
+        },
     )

@@ -19,6 +19,6 @@ from django.urls import path, include
 
 # URLS / URLCONF
 urlpatterns = [
-    path("", include("expenses.urls")),
+    path("my-expenses/", include("expenses.urls")),
     path("admin/", admin.site.urls),
 ]

@@ -31,6 +31,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Title</th>
         <th>Amount</th>
     </tr>
@@ -38,12 +39,14 @@
     <tbody>
     {% for object in object_list.all %}
         <tr>
+            <td><a href="{% url "expenses:detail" object.id %}">{{ object.id }}</a></td>
             <td>{{ object.title }}</td>
             <td>${{ object.amount }}</td>
         </tr>
     {% endfor %}
     <foot>
     <tr>
+        <th></th>
         <th></th>
         <th>${{ total }}</th>
     </tr>

@@ -22,15 +22,18 @@ from django.urls import path, include
 
 
 def my_view(request: HttpRequest):
+    if "my_random_number" not in request.session:
+        request.session["my_random_number"] = random.randint(1, 10)
+
     resp = render(
         request,
         "cookie_demo.html",
         {
+            # "d": request.session,
             "d": request.COOKIES,
+            "secret": request.session["my_random_number"],
         },
     )
-    if "my_random_number" not in request.COOKIES:
-        resp.set_cookie("my_random_number", random.randint(1, 10))
     return resp
 
 

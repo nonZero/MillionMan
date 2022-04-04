@@ -3,13 +3,13 @@
 *Just a sample django project.*
 
 ## Dev Setup
-* Requirements:
-  * Python 3.9+
-  * Poetry
 
+* Requirements:
+    * [Python 3.9+](https://www.python.org/)
+    * Poetry
 
 * Clone the project:
- 
+
       git clone https://github.com/nonZero/MillionMan.git
 
 * Create a venv and install deps:
@@ -34,8 +34,5 @@
 
 
 * Enjoy: <http://localhost:8000>
-
-
-
 
 

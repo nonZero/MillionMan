@@ -25,7 +25,9 @@ def expense_list(request: HttpRequest):
         arq = AMOUNT_RANGES_Q.get(amount_range)
         if arq:
             qs = qs.filter(arq)
-    total = sum(o.amount for o in qs)  # TODO: use SQL based aggregation==sum(amount)
+    total = sum(
+        o.amount for o in qs.all()
+    )  # TODO: use SQL based aggregation==sum(amount)
     return render(
         request,
         "expenses/expense_list.html",

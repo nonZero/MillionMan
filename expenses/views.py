@@ -30,10 +30,12 @@ def expense_list(request: HttpRequest):
         if arq:
             qs = qs.filter(arq)
 
-    search_fields = []
+    selected_fields = search_fields = []
     if q := request.GET.get("q", "").strip():
-        if not (search_fields := request.GET.getlist("my_search_fields")):
-            # if fields to search were not specified via checkboxes, search them all
+        if selected_fields := request.GET.getlist("my_search_fields"):
+            search_fields = selected_fields
+        else:
+            # no fields were specified via checkboxes, so search them all
             search_fields = [f.name for f in Expense._meta.get_fields()]  # QUESTION: use fields or get_fields()?
         search_clauses = [(f'{fld}__icontains', q) for fld in search_fields]
         q_list = [Q(clause) for clause in search_clauses]
@@ -49,7 +51,7 @@ def expense_list(request: HttpRequest):
             "object_list": qs,
             "total": total,
             "q": q,
-            "search_fields": search_fields,
+            "search_fields": selected_fields,
             "amount_range": amount_range,
             "AMOUNT_RANGES": AMOUNT_RANGES,
         },  # <--- CONTEXT

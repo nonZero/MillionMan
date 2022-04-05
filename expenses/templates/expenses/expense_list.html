@@ -10,6 +10,9 @@ Home
     <form>
         <p>
             Search: <input name="q" type="search" value="{{ q }}"/>
+            {% if q %}
+                <a href="/" class="btn btn-primary">Reset</a>
+            {% endif %}
         </p>
 
         <p>
@@ -24,6 +27,19 @@ Home
                 </select>
             </label>
         </p>
+        <p>
+            Search Fields:
+            <ul>
+                <li><label>Title: <input type="checkbox" name="my_search_fields" value="title"
+                                         {% if "title" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>Amount: <input type="checkbox" name="my_search_fields" value="amount"
+                                          {% if "amount" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>ID: <input type="checkbox" name="my_search_fields" value="id"
+                                      {% if "id" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>Description: <input type="checkbox" name="my_search_fields" value="description"
+                                               {% if "description" in search_fields %}checked{% endif %}/></label></li>
+            </ul>
+        </p>
         <button>Search</button>
 
     </form>
@@ -32,8 +48,8 @@ Home
     <p>
         {% if q %}
             <span class="search-caption">
-        Searched for: <b>{{ q }}</b> <a href="/">✕</a>
-        </span>
+                Searched for: <b>{{ q }}</b>
+            </span>
             &bull;
         {% endif %}
         Expenses Found: {{ object_list.count }}

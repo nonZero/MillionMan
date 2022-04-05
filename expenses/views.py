@@ -1,3 +1,6 @@
+from functools import reduce
+import operator
+
 from django.db.models import Q
 from django.http import HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -22,12 +25,22 @@ AMOUNT_RANGES_Q = {
 
 def expense_list(request: HttpRequest):
     qs = Expense.objects
-    if q := request.GET.get("q", "").strip():
-        qs = qs.filter(title__icontains=q)
     if amount_range := request.GET.get("amount_range", ""):
         arq = AMOUNT_RANGES_Q.get(amount_range)
         if arq:
             qs = qs.filter(arq)
+
+    selected_fields = search_fields = []
+    if q := request.GET.get("q", "").strip():
+        if selected_fields := request.GET.getlist("my_search_fields"):
+            search_fields = selected_fields
+        else:
+            # no fields were specified via checkboxes, so search them all
+            search_fields = [f.name for f in Expense._meta.get_fields()]  # QUESTION: use fields or get_fields()?
+        search_clauses = [(f'{fld}__icontains', q) for fld in search_fields]
+        q_list = [Q(clause) for clause in search_clauses]
+        qs = qs.filter(reduce(operator.or_, q_list))
+
     total = sum(
         o.amount for o in qs.all()
     )  # TODO: use SQL based aggregation==sum(amount)
@@ -38,6 +51,7 @@ def expense_list(request: HttpRequest):
             "object_list": qs,
             "total": total,
             "q": q,
+            "search_fields": selected_fields,
             "amount_range": amount_range,
             "AMOUNT_RANGES": AMOUNT_RANGES,
         },  # <--- CONTEXT

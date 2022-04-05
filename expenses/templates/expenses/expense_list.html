@@ -27,6 +27,19 @@ Home
                 </select>
             </label>
         </p>
+        <p>
+            Search Fields:
+            <ul>
+                <li><label>Title: <input type="checkbox" name="my_search_fields" value="title"
+                                         {% if "title" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>Amount: <input type="checkbox" name="my_search_fields" value="amount"
+                                          {% if "amount" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>ID: <input type="checkbox" name="my_search_fields" value="id"
+                                      {% if "id" in search_fields %}checked{% endif %}/></label></li>
+                <li><label>Description: <input type="checkbox" name="my_search_fields" value="desc"
+                                               {% if "desc" in search_fields %}checked{% endif %}/></label></li>
+            </ul>
+        </p>
         <button>Search</button>
 
     </form>

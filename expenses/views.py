@@ -28,6 +28,7 @@ def expense_list(request: HttpRequest):
         arq = AMOUNT_RANGES_Q.get(amount_range)
         if arq:
             qs = qs.filter(arq)
+    search_fields = request.GET.getlist("my_search_fields")
     total = sum(
         o.amount for o in qs.all()
     )  # TODO: use SQL based aggregation==sum(amount)
@@ -38,6 +39,7 @@ def expense_list(request: HttpRequest):
             "object_list": qs,
             "total": total,
             "q": q,
+            "search_fields": search_fields,
             "amount_range": amount_range,
             "AMOUNT_RANGES": AMOUNT_RANGES,
         },  # <--- CONTEXT

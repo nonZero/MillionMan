@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load humanize django_bootstrap5 %}
 
 {% block title %}
     Expense #{{ object.id }}: {{ object.title }}
@@ -34,9 +34,15 @@
             </li>
         {% endfor %}
         <li class="list-group-item">
-            <a class="btn btn-outline-primary btn-sm"
-               href="{% url "expenses:comment_create" object.id %}">Create
-                comment</a>
+            <form method="post" action="{% url "expenses:comment_create" object.id %}">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% if object.id %}
+                        {% bootstrap_button "Update" %}
+                    {% else %}
+                        {% bootstrap_button "Create" %}
+                    {% endif %}
+            </form>
         </li>
     </ul>
 

@@ -4,8 +4,16 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=300, blank=False, unique=True)
+    priority = models.IntegerField(default=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Expense(models.Model):
-    # created_at = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, models.PROTECT, related_name="expenses")
     title = models.CharField(
         max_length=300,
         validators=[

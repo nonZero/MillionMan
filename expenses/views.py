@@ -41,7 +41,7 @@ class ExpenseBaseView(LoginRequiredMixin):
 
 
 class ExpenseListView(ExpenseBaseView, ListView):
-    pass
+    paginate_by = 10
 
     # ordering = "-title"
     # paginate_by = 15

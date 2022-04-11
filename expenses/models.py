@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
@@ -13,6 +14,9 @@ class Category(models.Model):
 
 
 class Expense(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.PROTECT, related_name="expenses"
+    )
     category = models.ForeignKey(Category, models.PROTECT, related_name="expenses")
     title = models.CharField(
         max_length=300,
@@ -36,6 +40,9 @@ class Expense(models.Model):
 
 class Comment(models.Model):
     expense = models.ForeignKey(Expense, models.PROTECT, related_name="comments")
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.PROTECT, related_name="comments"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     is_todo = models.BooleanField(default=False)

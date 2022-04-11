@@ -23,7 +23,7 @@ AMOUNT_RANGES_Q = {
 
 @login_required
 def expense_list(request: HttpRequest):
-    qs = Expense.objects
+    qs = Expense.objects.filter(user=request.user)
     if q := request.GET.get("q", "").strip():
         qs = qs.filter(title__icontains=q)
     if amount_range := request.GET.get("amount_range", ""):
@@ -48,7 +48,7 @@ def expense_list(request: HttpRequest):
 
 @login_required
 def expense_detail(request: HttpRequest, pk: int):
-    o = get_object_or_404(Expense, id=pk)
+    o = get_object_or_404(Expense, id=pk, user=request.user)
 
     return render(
         request,
@@ -64,7 +64,9 @@ def expense_create(request: HttpRequest):
     if request.method == "POST":
         form = forms.ExpenseForm(request.POST)
         if form.is_valid():
-            o = form.save()
+            o: Expense = form.instance
+            o.user = request.user
+            form.save()
             return redirect(o)
             # return redirect(reverse("expenses:list"))
         # fallthrough!!!!
@@ -81,7 +83,7 @@ def expense_create(request: HttpRequest):
 
 @login_required
 def expense_update(request: HttpRequest, pk: int):
-    o = get_object_or_404(Expense, id=pk)
+    o = get_object_or_404(Expense, id=pk, user=request.user)
     if request.method == "POST":
         form = forms.ExpenseForm(request.POST, instance=o)
         if form.is_valid():
@@ -103,7 +105,7 @@ def expense_update(request: HttpRequest, pk: int):
 
 @login_required
 def expense_delete(request: HttpRequest, pk: int):
-    o = get_object_or_404(Expense, id=pk)
+    o = get_object_or_404(Expense, id=pk, user=request.user)
     if request.method == "POST":
         oid = o.id
         o.delete()

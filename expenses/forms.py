@@ -15,7 +15,8 @@ class FeedbackForm(forms.Form):
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = models.Expense
-        fields = "__all__"
+        exclude = ("user",)
+        # fields = "__all__"
         # fields = (
         #     "amount",
         #     "date",

@@ -46,5 +46,10 @@
         </li>
     </ul>
 
+    <div hx-get="{% url "expenses:random" %}">
+        CLICK ME!!!!
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.7.0/htmx.min.js" integrity="sha512-etqA0KankuxrlSeZDYycQBY/D/KWZn0YZjlsjAo7kCEBTy1gg+DwmR6icxtOpqDBOzm2P00/lSIXEu7K+zvNsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {% endblock %}

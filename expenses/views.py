@@ -115,3 +115,8 @@ class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.expense = self.get_expense()
         form.instance.created_by = self.request.user
         return super().form_valid(form)
+
+
+class RandomView(View):
+    def get(self, request, **kwargs):
+        return HttpResponse(f"SHALOM {random.randint(1, 100)}!")

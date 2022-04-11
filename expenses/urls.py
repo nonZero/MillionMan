@@ -15,4 +15,5 @@ urlpatterns = [
         name="comment_create",
     ),
     path("create/", views.ExpenseCreateView.as_view(), name="create"),
+    path("random/", views.RandomView.as_view(), name="random"),
 ]

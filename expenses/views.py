@@ -43,14 +43,16 @@ class ExpenseListView(ExpenseBaseView, ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        total = sum(
-            o.amount for o in self.get_queryset().all()
-        )  # TODO: use SQL based aggregation==sum(amount)
-
-        return super().get_context_data(
-            total=total,
+        d = super().get_context_data(
             **kwargs,
         )
+        d["total"] = sum(
+            o.amount for o in d["object_list"]
+        )  # TODO: use SQL based aggregation==sum(amount)
+        d["grand_total"] = sum(
+            o.amount for o in self.get_queryset()
+        )  # TODO: use SQL based aggregation==sum(amount)
+        return d
 
 
 class ExpenseDetailView(ExpenseBaseView, DetailView):

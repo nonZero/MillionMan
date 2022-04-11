@@ -7,28 +7,6 @@ Home
 {% block content %}
     <h1>Home</h1>
 
-    <form>
-        <p>
-            Search: <input name="q" type="search" value="{{ q }}"/>
-        </p>
-
-        <p>
-            <label>
-                Amount:
-                <select name="amount_range">
-                    <option value="">All</option>
-                    {% for k, v in AMOUNT_RANGES.items %}
-                        <option value="{{ k }}" {% if amount_range == k %}
-                                selected{% endif %}>{{ v }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-        </p>
-        <button>Search</button>
-
-    </form>
-
-
     <p>
         {% if q %}
             <span class="search-caption">

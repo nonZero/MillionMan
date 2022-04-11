@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -81,8 +82,8 @@ def expense_update(request: HttpRequest, pk: int):
         form = forms.ExpenseForm(request.POST, instance=o)
         if form.is_valid():
             o = form.save()
+            messages.info(request, f"Update expense #{o.id} successfully.")
             return redirect(o)
-            # return redirect(reverse("expenses:list"))
         # fallthrough!!!!
     else:
         form = forms.ExpenseForm(instance=o)
@@ -99,7 +100,9 @@ def expense_update(request: HttpRequest, pk: int):
 def expense_delete(request: HttpRequest, pk: int):
     o = get_object_or_404(Expense, id=pk)
     if request.method == "POST":
+        oid = o.id
         o.delete()
+        messages.success(request, f"Deleted expense #{oid} successfully.")
         return redirect(reverse("expenses:list"))
 
     return render(

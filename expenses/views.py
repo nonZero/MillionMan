@@ -1,12 +1,12 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpRequest, Http404
+from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from . import forms
-
 from expenses.models import Expense
+from . import forms
 
 AMOUNT_RANGES = {
     "cheap": "Cheap (<$10)",
@@ -21,6 +21,7 @@ AMOUNT_RANGES_Q = {
 }
 
 
+@login_required
 def expense_list(request: HttpRequest):
     qs = Expense.objects
     if q := request.GET.get("q", "").strip():
@@ -45,6 +46,7 @@ def expense_list(request: HttpRequest):
     )
 
 
+@login_required
 def expense_detail(request: HttpRequest, pk: int):
     o = get_object_or_404(Expense, id=pk)
 
@@ -57,6 +59,7 @@ def expense_detail(request: HttpRequest, pk: int):
     )
 
 
+@login_required
 def expense_create(request: HttpRequest):
     if request.method == "POST":
         form = forms.ExpenseForm(request.POST)
@@ -76,6 +79,7 @@ def expense_create(request: HttpRequest):
     )
 
 
+@login_required
 def expense_update(request: HttpRequest, pk: int):
     o = get_object_or_404(Expense, id=pk)
     if request.method == "POST":
@@ -97,6 +101,7 @@ def expense_update(request: HttpRequest, pk: int):
     )
 
 
+@login_required
 def expense_delete(request: HttpRequest, pk: int):
     o = get_object_or_404(Expense, id=pk)
     if request.method == "POST":

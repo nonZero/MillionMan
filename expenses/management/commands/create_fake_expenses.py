@@ -33,10 +33,15 @@ class Command(BaseCommand):
             )
         cats = list(Category.objects.all())
         for i in range(n):
-            Expense.objects.create(
+            o = Expense.objects.create(
                 category=random.choice(cats),
                 title=faker.sentence(),
                 amount=random.randint(100, 30000) / 100,
                 date=faker.date_this_year(),
                 description=faker.paragraph(),
             )
+            for i in range(int(random.normalvariate(2, 1))):
+                o.comments.create(
+                    content="\n".join(faker.sentences(3)),
+                    is_todo=random.randint(1, 10) == 7,
+                )

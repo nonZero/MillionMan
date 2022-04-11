@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block title %}
     Expense #{{ object.id }}: {{ object.title }}
@@ -8,8 +9,10 @@
     <h1>Expense #{{ object.id }}: {{ object.title }}</h1>
 
     <p>
-        <a class="btn btn-outline-primary btn-sm" href="{% url "expenses:update" object.pk %}">Update</a>
-        <a class="btn btn-outline-danger btn-sm" href="{% url "expenses:delete" object.pk %}">Delete</a>
+        <a class="btn btn-outline-primary btn-sm"
+           href="{% url "expenses:update" object.pk %}">Update</a>
+        <a class="btn btn-outline-danger btn-sm"
+           href="{% url "expenses:delete" object.pk %}">Delete</a>
     </p>
 
     <ul>
@@ -19,5 +22,18 @@
         <li>Date: {{ object.date }}</li>
         <li>Description: {{ object.description|linebreaks }}</li>
     </ul>
+
+    <h2>Comments</h2>
+    <ul class="list-group">
+        {% for c in object.comments.all %}
+            <li class="list-group-item">
+                <div class="fw-bold" title="{{ c.created_at }}">
+                    {{ c.created_at|naturaltime }}
+                </div>
+                {{ c.content|linebreaks }}
+            </li>
+        {% endfor %}
+    </ul>
+
 
 {% endblock %}

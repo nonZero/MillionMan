@@ -32,3 +32,10 @@ class Expense(models.Model):
 
     def is_expensive(self):
         return self.amount > 75
+
+
+class Comment(models.Model):
+    expense = models.ForeignKey(Expense, models.PROTECT, related_name="comments")
+    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    is_todo = models.BooleanField(default=False)

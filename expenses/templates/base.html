@@ -70,6 +70,18 @@
                         Search
                     </button>
                 </form>
+                <div class="flex-grow-1"></div>
+                <span>
+                    {% if user.is_authenticated %}
+                        Hello
+                        {{ user }}
+                        |
+                        <a href="{% url "logout" %}">Logout</a>
+                    {% else %}
+                        <a href="{% url "login" %}">Login</a>
+
+                    {% endif %}
+                </span>
             </div>
         </div>
     </nav>

@@ -39,7 +39,7 @@ class Expense(models.Model):
 
 
 class Comment(models.Model):
-    expense = models.ForeignKey(Expense, models.PROTECT, related_name="comments")
+    expense = models.ForeignKey(Expense, models.CASCADE, related_name="comments")
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, models.PROTECT, related_name="comments"
     )

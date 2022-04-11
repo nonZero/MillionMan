@@ -33,6 +33,11 @@
                 {{ c.content|linebreaks }}
             </li>
         {% endfor %}
+        <li class="list-group-item">
+            <a class="btn btn-outline-primary btn-sm"
+               href="{% url "expenses:comment_create" object.id %}">Create
+                comment</a>
+        </li>
     </ul>
 
 

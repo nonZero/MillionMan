@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -10,7 +11,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from expenses.models import Expense
+from expenses.models import Expense, Comment
 from . import forms
 
 AMOUNT_RANGES = {
@@ -75,3 +76,32 @@ class ExpenseUpdateView(ExpenseBaseView, UpdateView):
 
 class ExpenseDeleteView(ExpenseBaseView, DeleteView):
     success_url = reverse_lazy("expenses:list")
+
+
+class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Comment
+    fields = (
+        "content",
+        "is_todo",
+    )
+    success_message = "Comment created."
+
+    def get_success_url(self):
+        return self.get_expense().get_absolute_url()
+
+    def get_expense(self):
+        return get_object_or_404(
+            Expense,
+            id=self.kwargs["pk"],
+            user=self.request.user,
+        )
+
+    def get_context_data(self, **kwargs):
+        d = super().get_context_data(**kwargs)
+        d["expense"] = self.get_expense()
+        return d
+
+    def form_valid(self, form):
+        form.instance.expense = self.get_expense()
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)

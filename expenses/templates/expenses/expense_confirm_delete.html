@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Delete Expense #{{ object.id }}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Delete Expense #{{ object.id }}
+    </h1>
+
+    <form method="post">
+        <ul>
+            <p>
+                Are you sure you want to delete expense #{{ object.id }} "{{ object.title }}"?
+            </p>
+            {% csrf_token %}
+            {% bootstrap_button "Delete" %}
+        </ul>
+    </form>
+
+
+{% endblock %}

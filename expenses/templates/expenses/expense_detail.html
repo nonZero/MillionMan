@@ -9,6 +9,7 @@
 
     <p>
         <a class="btn btn-outline-primary btn-sm" href="{% url "expenses:update" object.pk %}">Update</a>
+        <a class="btn btn-outline-danger btn-sm" href="{% url "expenses:delete" object.pk %}">Delete</a>
     </p>
 
     <ul>

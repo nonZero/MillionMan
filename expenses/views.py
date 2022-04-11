@@ -94,3 +94,18 @@ def expense_update(request: HttpRequest, pk: int):
             "form": form,
         },
     )
+
+
+def expense_delete(request: HttpRequest, pk: int):
+    o = get_object_or_404(Expense, id=pk)
+    if request.method == "POST":
+        o.delete()
+        return redirect(reverse("expenses:list"))
+
+    return render(
+        request,
+        "expenses/expense_confirm_delete.html",
+        {
+            "object": o,
+        },
+    )

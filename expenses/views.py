@@ -73,3 +73,24 @@ def expense_create(request: HttpRequest):
             "form": form,
         },
     )
+
+
+def expense_update(request: HttpRequest, pk: int):
+    o = get_object_or_404(Expense, id=pk)
+    if request.method == "POST":
+        form = forms.ExpenseForm(request.POST, instance=o)
+        if form.is_valid():
+            o = form.save()
+            return redirect(o)
+            # return redirect(reverse("expenses:list"))
+        # fallthrough!!!!
+    else:
+        form = forms.ExpenseForm(instance=o)
+    return render(
+        request,
+        "expenses/expense_form.html",
+        {
+            "object": o,
+            "form": form,
+        },
+    )

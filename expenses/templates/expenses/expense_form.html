@@ -2,17 +2,31 @@
 {% load django_bootstrap5 %}
 
 {% block title %}
-    Create Expense
+    {% if object.id %}
+        Update Expense #{{ object.id }}
+    {% else %}
+        Create Expense
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-    <h1>Create Expense</h1>
+    <h1>
+        {% if object.id %}
+            Update Expense #{{ object.id }}
+        {% else %}
+            Create Expense
+        {% endif %}
+    </h1>
 
     <form method="post">
         <ul>
             {% csrf_token %}
             {% bootstrap_form form %}
-            {% bootstrap_button "Create" %}
+            {% if object.id %}
+                {% bootstrap_button "Update" %}
+            {% else %}
+                {% bootstrap_button "Create" %}
+            {% endif %}
         </ul>
     </form>
 

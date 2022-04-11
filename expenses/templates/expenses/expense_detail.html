@@ -7,6 +7,10 @@
 {% block content %}
     <h1>Expense #{{ object.id }}: {{ object.title }}</h1>
 
+    <p>
+        <a class="btn btn-outline-primary btn-sm" href="{% url "expenses:update" object.pk %}">Update</a>
+    </p>
+
     <ul>
         <li>ID: {{ object.id }}</li>
         <li>Title: {{ object.title }}</li>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load humanize django_bootstrap5 %}
+
+{% block title %}
+    Expense #{{ object.id }}: {{ object.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    {{ object.content|linebreaks }}
+
+{% endblock %}

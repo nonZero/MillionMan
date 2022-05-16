@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 humanize %}
+
+{% block title %}
+    Blog
+{% endblock %}
+
+{% block content %}
+
+    <h1>Blog</h1>
+
+    {% for object in object_list %}
+        <div>
+            <h2>{{ object.title }}</h2>
+            {{ object.teaser|linebreaks }}
+            <i>{{ object.posted_at|naturaltime }}</i>
+            &bull;
+            <a href="{{ object.get_absolute_url }}">Read more...</a>
+        </div>
+        <hr>
+    {% endfor %}
+
+    {% bootstrap_pagination page_obj %}
+
+{% endblock %}

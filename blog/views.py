@@ -24,6 +24,9 @@ class PostListView(ListView):
     model = Post
     paginate_by = 10
 
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
 
 class PostDetailView(DetailView):
     model = Post

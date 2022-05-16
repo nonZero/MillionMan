@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import (
@@ -32,11 +32,28 @@ AMOUNT_RANGES_Q = {
 }
 
 
-class ExpenseBaseView(LoginRequiredMixin):
+class AllExpensesBaseView(LoginRequiredMixin):
     model = Expense
 
     def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
+        return (
+            super().get_queryset()
+            # TODO: Refactor: move to Manager qs.active().for_user(user)
+            .filter(
+                user=self.request.user,
+            )
+        )
+
+
+class ExpenseBaseView(AllExpensesBaseView):
+    def get_queryset(self):
+        return (
+            super().get_queryset()
+            # TODO: Refactor: move to Manager qs.active().for_user(user)
+            .filter(
+                active=True,
+            )
+        )
 
 
 class ExpenseListView(ExpenseBaseView, ListView):
@@ -61,7 +78,7 @@ class ExpenseListView(ExpenseBaseView, ListView):
         return d
 
 
-class ExpenseDetailView(ExpenseBaseView, DetailView):
+class ExpenseDetailView(AllExpensesBaseView, DetailView):
     model = Expense
 
     def get_context_data(self, **kwargs):
@@ -86,6 +103,10 @@ class ExpenseUpdateView(ExpenseBaseView, UpdateView):
 
 class ExpenseDeleteView(ExpenseBaseView, DeleteView):
     success_url = reverse_lazy("expenses:list")
+
+    def form_valid(self, form):
+        self.object.safe_delete()
+        return redirect(self.get_success_url())
 
 
 class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

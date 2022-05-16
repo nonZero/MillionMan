@@ -17,6 +17,7 @@ class Expense(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, models.PROTECT, related_name="expenses"
     )
+    active = models.BooleanField(default=True)
     category = models.ForeignKey(Category, models.PROTECT, related_name="expenses")
     title = models.CharField(
         max_length=300,
@@ -30,6 +31,10 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.title
+
+    def safe_delete(self):
+        self.active = False
+        self.save()
 
     def get_absolute_url(self):
         return reverse("expenses:detail", kwargs={"pk": self.id})

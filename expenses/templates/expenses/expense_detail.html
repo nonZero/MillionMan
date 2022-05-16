@@ -11,8 +11,13 @@
     <p>
         <a class="btn btn-outline-primary btn-sm"
            href="{% url "expenses:update" object.pk %}">Update</a>
+        {% if object.active %}
         <a class="btn btn-outline-danger btn-sm"
            href="{% url "expenses:delete" object.pk %}">Delete</a>
+        {% else %}
+        <a class="btn btn-outline-danger btn-sm"
+           href="{% url "expenses:delete" object.pk %}">Undelete</a>
+        {% endif %}
     </p>
 
     <ul>

@@ -14,6 +14,7 @@ django-extensions = "^3.1.5"
 Faker = "^13.3.3"
 django-bootstrap5 = "^21.3"
 silly = "^1.1.0"
+djangorestframework = "^3.13.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"

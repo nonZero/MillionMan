@@ -8,8 +8,16 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from rest_framework.viewsets import ModelViewSet
+
 from .models import Post
 from . import forms
+from .serializers import PostSerializer
+
+
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 class PostListView(ListView):

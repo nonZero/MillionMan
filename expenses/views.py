@@ -68,6 +68,7 @@ class ExpenseJsonView(ExpenseBaseView, ListView):
                         "title": o.title,
                         "amount": o.amount,
                         "date": o.date,
+                        "category": o.category,
                     }
                     for o in qs
                 ],

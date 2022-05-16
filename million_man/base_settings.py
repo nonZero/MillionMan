@@ -26,7 +26,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "millionman.herokuapp.com",
+]
 
 
 # Application definition

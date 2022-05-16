@@ -14,10 +14,23 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
 from expenses.models import Expense, Comment
 from . import forms
 from .forms import CommentForm
+from .serializers import ExpenseSerializer
+
+
+class ExpenseViewSet(ModelViewSet):
+    queryset = Expense.objects.filter(active=True)
+    serializer_class = ExpenseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 AMOUNT_RANGES = {
     "cheap": "Cheap (<$10)",

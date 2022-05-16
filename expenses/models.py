@@ -29,7 +29,7 @@ class Expense(models.Model):
         ],
     )
     amount = models.DecimalField(decimal_places=2, max_digits=11)
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=lambda: timezone.now().date())
     description = models.TextField(default="", blank=True)
 
     def __str__(self):

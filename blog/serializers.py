@@ -3,7 +3,7 @@ from rest_framework import serializers
 from blog import models
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Post
         fields = (

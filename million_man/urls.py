@@ -11,8 +11,8 @@ router.register("expense", ExpenseViewSet)
 
 # URLS / URLCONF
 urlpatterns = [
-    path("", include("expenses.urls")),
-    path("blog/", include("blog.urls")),
+    path("expenses/", include("expenses.urls")),
+    path("", include("blog.urls")),
     path("api/", include(router.urls)),
     path("", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),

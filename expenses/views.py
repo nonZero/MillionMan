@@ -3,7 +3,7 @@ import random
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -53,6 +53,25 @@ class ExpenseBaseView(AllExpensesBaseView):
             .filter(
                 active=True,
             )
+        )
+
+
+class ExpenseJsonView(ExpenseBaseView, ListView):
+    def get(self, request, *args, **kwargs):
+        qs = self.get_queryset()
+        return JsonResponse(
+            {
+                "status": "ok",
+                "expenses": [
+                    {
+                        "id": o.id,
+                        "title": o.title,
+                        "amount": o.amount,
+                        "date": o.date,
+                    }
+                    for o in qs
+                ],
+            }
         )
 
 

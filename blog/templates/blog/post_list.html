@@ -14,7 +14,13 @@
             <h2>{{ object.title }}</h2>
             {{ object.teaser|linebreaks }}
             <i>{{ object.posted_at|naturaltime }}</i>
+
             &bull;
+
+            {% for tag in object.tags.all %}
+                <b>{{ tag }}</b> &bull;
+            {% endfor %}
+
             <a href="{{ object.get_absolute_url }}">Read more...</a>
         </div>
         <hr>
